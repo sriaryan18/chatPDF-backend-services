@@ -1,0 +1,28 @@
+services:
+  auth:
+    redirectionURL: "http://localhost:3000"
+    subUrl:
+      checkUsername:
+          isProtected: false
+          isSubscription: false
+          path: /api/auth/checkUsername
+      login:
+          isProtected: false
+          isSubscription: false
+          path: /api/auth/login
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
