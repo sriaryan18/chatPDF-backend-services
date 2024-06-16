@@ -14,8 +14,9 @@ datasource db {
 }
 
 model Document{
-  id       String   @id
+  id        Int    @id @default(autoincrement())
   createdAt DateTime @default(now())
-  title     String   @db.VarChar(255)
-  userID String 
+  title     String?  @db.VarChar(255)
+  userId    String
+  status    String
 }

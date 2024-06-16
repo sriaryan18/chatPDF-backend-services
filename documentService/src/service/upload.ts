@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
 import S3 from "../libs/S3";
 import {UploadStatus} from '../types/status'
-export const handleUplaod = async (req: Request, res: Response) => {
+export const handleUpload = async (req: Request, res: Response) => {
   // const userDetails = getUserDetails(req)
 
   const preSignedUrl = await S3.getSignedUrl_put("testuser");
   if (preSignedUrl) {
     res.json({ preSignedUrl }).status(200);
+  }else{
+    res.status(402).send({message:'Bad request'})
   }
 };
 

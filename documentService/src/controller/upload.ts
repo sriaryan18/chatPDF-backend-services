@@ -1,7 +1,7 @@
 import express, {Request,Response} from 'express';
-import {handleUplaod,handleStatusUpdate} from '../service/upload'
+import {handleUpload as handleUpload,handleStatusUpdate} from '../service/upload'
 const router = express.Router();
 
-router.get('/',handleUplaod);
-router.post('/uplaod-status',handleStatusUpdate)
+router.get('/',handleUpload);
+router.post('upload',handleStatusUpdate)
 export default router;
