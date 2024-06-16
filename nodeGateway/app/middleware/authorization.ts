@@ -43,6 +43,7 @@ const navigateToDesinatedService = async (
   }
 
 // options.test = 'test'
+// console.log('at navigate desination',path,redirectionUrl)
   const data = req?.body;
   if (method === "GET")
     return await makeGetRequest( queryParams,  completeUrl,options);
@@ -57,20 +58,20 @@ export const handleAuth = async (
   next: NextFunction
 ) => {
   const path = req.path.split("/");
-  const service = path[1];
+  const service = path[1]; // TODO: has to be generic not dependent on indexes in the path
   const authHeader: string | undefined = req.get("Authorization");
 
   if (service in routesConfig) {
     const serviceConfigs = routesConfig[service as keyof typeof routesConfig];
     if (path.length > 1) {
       const subPath = path[2];
-
-      //@ts-ignore // TODO : make appropita types
+      //@ts-ignore // TODO : make appropriate types
       for (const [routeName, config] of Object.entries(
         //@ts-ignore
         serviceConfigs?.subUrl
       )) {
         //@ts-ignore
+        console.log('service config',subPath,routeName)
 
         if (subPath === routeName) {
           if (config?.isProtected || config?.isSubscription) {

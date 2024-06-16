@@ -4,7 +4,7 @@ import YAML from 'yaml';
 const baseDir = __dirname.split('/');
 baseDir.splice(baseDir.length - 1);
 const fileName = 'routes.yaml';
-const routeiFile = `${baseDir.join('/')}/${fileName}`;
+const routeFile = `${baseDir.join('/')}/${fileName}`;
 
 
 const readFile = (fileName:string) : object => {
@@ -16,7 +16,7 @@ const readFile = (fileName:string) : object => {
 
 export const getRoutesConfig = () => {
     console.log('ROUTES config')
-    return readFile(routeiFile);
+    return readFile(routeFile);
 }
 
 

@@ -10,7 +10,13 @@ services:
           isProtected: false
           isSubscription: false
           path: /api/auth/login
-      
+  upload:
+   redirectionURL: "http://localhost:3004"
+   subUrl:
+    signed-url:
+      isProtected: false
+      isSubscription: false
+      path: /upload
 
       
 

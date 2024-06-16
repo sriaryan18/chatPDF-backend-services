@@ -42,7 +42,6 @@ class S3 {
 
         { expiresIn: 3600 }
       );
-      console.log("i", signedUrl);
       return signedUrl;
     }
   };

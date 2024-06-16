@@ -13,6 +13,7 @@ export const makeGetRequest = async (
   headers?: any
 ) => {
   try {
+    console.log('I am here',queryParams,url,headers)
     const response = await new Promise((resolve, reject) => {
       needle.get(
         getRequestUrl(queryParams,url),

@@ -12,11 +12,13 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.14.2",
+    "prisma": "^5.15.0",
     "typescript": "^5.4.5"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.598.0",
     "@aws-sdk/s3-request-presigner": "^3.598.0",
+    "@prisma/client": "^5.15.0",
     "@types/express": "^4.17.21",
     "express": "^4.19.2"
   }

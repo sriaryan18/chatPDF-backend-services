@@ -1,8 +1,22 @@
 import { Request, Response } from "express";
 import S3 from "../libs/S3";
-export default (req: Request, res: Response) => {
-  console.log("i am s3 ", S3.getSignedUrl_put("testing2"), {
-    test: "meta data",
-  });
-  res.send("Service tested");
+import {UploadStatus} from '../types/status'
+export const handleUplaod = async (req: Request, res: Response) => {
+  // const userDetails = getUserDetails(req)
+
+  const preSignedUrl = await S3.getSignedUrl_put("testuser");
+  if (preSignedUrl) {
+    res.json({ preSignedUrl }).status(200);
+  }
 };
+
+export const handleStatusUpdate = (req:Request,res:Response) => {
+  const {status , documentId = null} = req.body;
+
+  if(status === UploadStatus.SUCCESS){
+    
+  }else if(status === UploadStatus.FAILURE){
+
+  }
+
+}

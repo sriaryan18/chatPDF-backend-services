@@ -8,7 +8,7 @@ const app: Express = express();
 app.use(cors());
 app.use(express.json());
 app.use(handleAuth);
-
+debugger;
 app.get("/**", (req: Request, res: Response) => {
     
 });
