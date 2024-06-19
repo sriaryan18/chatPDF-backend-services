@@ -1,12 +1,13 @@
-import express from 'express';
-import upload from './controller/upload'
-import { authenticateRequest } from './middlewares/userMiddleware';
-
+import express from "express";
+import upload from "./controller/upload";
+import { authenticateRequest } from "./middlewares/userMiddleware";
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.use(authenticateRequest)
-app.use('/upload',upload);
+// app.use(authenticateRequest)
+app.use("/upload", upload);
 
-const port = process.env.PORT
-app.listen(port,() => console.log('app started'))
+const port = process.env.PORT;
+app.listen(port, () => console.log("app started"));

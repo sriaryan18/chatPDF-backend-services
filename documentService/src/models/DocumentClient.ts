@@ -2,57 +2,61 @@ import { PrismaClient } from "@prisma/client";
 import { UploadStatus } from "../types/status";
 
 class Document {
-  private static prisma: PrismaClient;
-
-  public static getInstance(): PrismaClient {
-    if (!Document.prisma) {
-      Document.prisma = new PrismaClient();
-      this.handleCleanup();
-    }
-    return Document.prisma;
+  private prisma: PrismaClient;
+  constructor() {
+    this.prisma = new PrismaClient();
   }
-  private static handleCleanup = () => {
-    const cleanup = async () => {
-      if (Document.prisma) {
-        await Document.prisma.$disconnect();
-      }
-    };
-    process.on("SIGINT", cleanup);
-    process.on("SIGTERM", cleanup);
-    process.on("exit", cleanup);
+
+  handleCleanup = () => {
+    this.prisma.$disconnect();
   };
 
   addNewDocument = async (userName: string, title: string) => {
     try {
       // Find the user by userName
-      const document = await Document.prisma.document.findMany({
-        where: { userID: userName },
+      const document = await this.prisma.document.findMany({
+        where: { userId: userName },
       });
 
       // Create a new document associated with the found user
-      const newDocument = await Document.prisma.document.create({
+      const newDocument = await this.prisma.document.create({
         data: {
           title,
-          userID: userName,
+          userId: userName,
           status: UploadStatus.PENDING,
         },
       });
 
       console.log("New Document:", newDocument);
-      return newDocument;
+      return newDocument.id;
     } catch (error) {
       console.error("Error creating document:", error);
       throw error;
+    } finally {
+      this.handleCleanup();
     }
   };
-  updateDocumentStatus = async (documentId:number) => {
-    const document = await Document.prisma.document.update({
-      where:{id:documentId},
-      data:{
-        status:UploadStatus.SUCCESS
-      }
-    })
-  }
+  updateDocumentStatus = async (
+    documentId: number,
+    documentStatus: UploadStatus
+  ) => {
+    try {
+      const typeCasted = Number(documentId);
+
+      const document = await this.prisma.document.update({
+        where: { id: typeCasted },
+        data: {
+          status: documentStatus ?? UploadStatus.FAILURE,
+        },
+      });
+      console.log("I am document", document);
+      return document.id;
+    } catch (e) {
+      console.error("Error in updating the document", e);
+    } finally {
+      this.handleCleanup();
+    }
+  };
 }
 
-export default Document.getInstance();
+export default new Document();

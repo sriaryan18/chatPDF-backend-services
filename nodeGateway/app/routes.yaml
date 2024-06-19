@@ -3,32 +3,21 @@ services:
     redirectionURL: "http://localhost:3000"
     subUrl:
       checkUsername:
-          isProtected: false
-          isSubscription: false
-          path: /api/auth/checkUsername
+        isProtected: false
+        isSubscription: false
+        path: /api/auth/checkUsername
       login:
-          isProtected: false
-          isSubscription: false
-          path: /api/auth/login
+        isProtected: false
+        isSubscription: false
+        path: /api/auth/login
   upload:
-   redirectionURL: "http://localhost:3004"
-   subUrl:
-    signed-url:
-      isProtected: false
-      isSubscription: false
-      path: /upload
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
+    redirectionURL: "http://localhost:3004"
+    subUrl:
+      signed-url:
+        isProtected: false
+        isSubscription: false
+        path: /upload
+      update-status:
+        isProtected: false
+        isSubscription: false
+        path: /upload/update-status

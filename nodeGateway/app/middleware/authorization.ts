@@ -1,10 +1,10 @@
 // @ts-nocheck
 import { Request, Response, NextFunction } from "express";
 import { routesConfig } from "../utils/routesConfig";
-import { makeGetRequest , makePostRequest } from "../utils/request";
+import { makeGetRequest, makePostRequest } from "../utils/request";
 
-const PROTECTIION_TOKEN = 'protection-token';
-const SUBSCRIPTION_TOKEN = 'subscription-status'
+const PROTECTIION_TOKEN = "protection-token";
+const SUBSCRIPTION_TOKEN = "subscription-status";
 
 const getUserDetails = async (authHeader: string) => {
   const url = process.env.USER_DETAILS_URL;
@@ -38,17 +38,21 @@ const navigateToDesinatedService = async (
   const completeUrl = `${redirectionUrl}${path}`;
   const headers = req?.headers;
   const options = {
-    ...(headers[PROTECTIION_TOKEN] && {[PROTECTIION_TOKEN]:headers[PROTECTIION_TOKEN]}),
-    ...(headers[SUBSCRIPTION_TOKEN] && {[SUBSCRIPTION_TOKEN]:headers[SUBSCRIPTION_TOKEN]})
-  }
+    ...(headers[PROTECTIION_TOKEN] && {
+      [PROTECTIION_TOKEN]: headers[PROTECTIION_TOKEN],
+    }),
+    ...(headers[SUBSCRIPTION_TOKEN] && {
+      [SUBSCRIPTION_TOKEN]: headers[SUBSCRIPTION_TOKEN],
+    }),
+  };
 
-// options.test = 'test'
-// console.log('at navigate desination',path,redirectionUrl)
+  // options.test = 'test'
+  // console.log('at navigate desination',path,redirectionUrl,method)
   const data = req?.body;
   if (method === "GET")
-    return await makeGetRequest( queryParams,  completeUrl,options);
-  else if(method === 'POST'){
-    return await makePostRequest( queryParams, completeUrl, data, options);
+    return await makeGetRequest(queryParams, completeUrl, options);
+  else if (method === "POST") {
+    return await makePostRequest(queryParams, completeUrl, data, options);
   }
 };
 
@@ -71,7 +75,7 @@ export const handleAuth = async (
         serviceConfigs?.subUrl
       )) {
         //@ts-ignore
-        console.log('service config',subPath,routeName)
+        console.log("service config", subPath, routeName);
 
         if (subPath === routeName) {
           if (config?.isProtected || config?.isSubscription) {
@@ -104,7 +108,9 @@ export const handleAuth = async (
             config.path
           );
           // console.log('pro',proxiedRes)
-          return res.status(proxiedRes.statusCode || 200).send(proxiedRes);
+          return proxiedRes
+            ? res.status(proxiedRes.statusCode || 200).send(proxiedRes)
+            : res.status(500).send("Internal Service Error");
         }
       }
     }
