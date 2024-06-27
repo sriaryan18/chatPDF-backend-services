@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Document{
-  id        Int    @id @default(autoincrement())
+  id        String    @id @default(uuid())
   createdAt DateTime @default(now())
   title     String?  @db.VarChar(255)
   userId    String

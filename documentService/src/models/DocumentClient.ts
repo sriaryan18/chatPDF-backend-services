@@ -37,14 +37,14 @@ class Document {
     }
   };
   updateDocumentStatus = async (
-    documentId: number,
+    documentId: string,
     documentStatus: UploadStatus
   ) => {
     try {
-      const typeCasted = Number(documentId);
+    
 
       const document = await this.prisma.document.update({
-        where: { id: typeCasted },
+        where:{id:documentId},
         data: {
           status: documentStatus ?? UploadStatus.FAILURE,
         },

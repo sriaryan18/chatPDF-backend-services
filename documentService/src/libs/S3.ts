@@ -45,6 +45,13 @@ class S3 {
       return signedUrl;
     }
   };
+  downloadDocument = async (key : string) => {
+    if(this.S3){
+      const command = new GetObjectCommand({Bucket:this.bucketName,Key:key});
+      const signedUrl = await getSignedUrl(this.S3,command);
+      console.log('I am downloaded URL',signedUrl)
+    }
+  }
 }
 
 export default new S3();
