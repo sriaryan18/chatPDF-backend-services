@@ -20,6 +20,7 @@ class S3 {
       this.S3 = new S3Client({
         region: "auto",
         endpoint: `https://${this.accountId}.r2.cloudflarestorage.com`,
+        apiVersion:'v4',
 
         credentials: {
           accessKeyId: this.accessId,
@@ -37,7 +38,6 @@ class S3 {
           Bucket: this.bucketName,
           Key: identifier,
           ACL: "public-read-write",
-          ...(metaData ?? { Metadata: metaData }),
         }),
 
         { expiresIn: 3600 }
@@ -48,7 +48,7 @@ class S3 {
   downloadDocument = async (key : string) => {
     if(this.S3){
       const command = new GetObjectCommand({Bucket:this.bucketName,Key:key});
-      const signedUrl = await getSignedUrl(this.S3,command);
+      const signedUrl = await getSignedUrl(this.S3,command,{ expiresIn: 3600 });
       console.log('I am downloaded URL',signedUrl)
     }
   }
