@@ -17,6 +17,7 @@ export const handleKafkaEvent = async (payload: EachMessagePayload) => {
     const textSplitter = new RecursiveCharacterTextSplitter({ chunkSize: 1000,chunkOverlap:200 });
     const splittedText = await textSplitter.splitDocuments(docs);
     // console.log("I am splitted text",splittedText);
+    // TODO: here namespce should be based on something user/documentId
     new PineConeClass().storeDocs(splittedText,embeddings.client,'testNamespace');
     // splittedText.map(text => {
     //     embeddings.embedDocuments(text.pageContent)
