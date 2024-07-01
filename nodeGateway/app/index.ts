@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(handleAuth);
-debugger;
+
 app.use("/**", (req: Request, res: Response) => {});
 
 app.listen(process.env.PORT, () =>

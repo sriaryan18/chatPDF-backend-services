@@ -21,3 +21,10 @@ services:
         isProtected: false
         isSubscription: false
         path: /upload/update-status
+  chat:
+    redirectionURL: "http://localhost:1001"
+    subUrl:
+      query:
+        isProtected: false
+        isSubscription: false
+        path: /chat

@@ -17,6 +17,9 @@ dependencies:
   '@pinecone-database/pinecone':
     specifier: ^2.2.2
     version: 2.2.2
+  core:
+    specifier: link:@langchain/core
+    version: link:@langchain/core
   documents:
     specifier: link:@langchain/core/documents
     version: link:@langchain/core/documents

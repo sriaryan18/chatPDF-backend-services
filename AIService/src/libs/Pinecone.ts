@@ -21,7 +21,7 @@ class PineConeClass {
   }
  
 
-  getQueryDocs = async (
+  getRetriever = async (
     query: string,
     namespace: string,
     embedingClient: OpenAIEmbeddings
@@ -30,9 +30,10 @@ class PineConeClass {
         pineconeIndex: this.pineconeIdx,
         namespace
     });
-    const result = await vectorStore.similaritySearch(query,2);
-    console.log('I am vector store',result,query);
-    return result
+    return vectorStore.asRetriever();
+    // const result = await vectorStore.similaritySearch(query,2);
+    // // console.log('I am vector store',result,query);
+    // return result
 
   };
 }
