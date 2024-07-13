@@ -31,9 +31,6 @@ class PineConeClass {
         namespace
     });
     return vectorStore.asRetriever();
-    // const result = await vectorStore.similaritySearch(query,2);
-    // // console.log('I am vector store',result,query);
-    // return result
 
   };
 }

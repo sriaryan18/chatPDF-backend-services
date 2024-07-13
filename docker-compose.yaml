@@ -1,10 +1,13 @@
 version: '3.8'
+
 services:
   zookeeper:
     image: wurstmeister/zookeeper:3.4.6
     container_name: zookeeper
     ports:
       - "2181:2181"
+    networks:
+      - kafka-network  # Isolated network for Kafka services
 
   kafka:
     image: wurstmeister/kafka:2.12-2.3.0
@@ -21,3 +24,46 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - kafka-network  # Isolated network for Kafka services
+
+  mongo1:
+    image: mongo
+    container_name: chatServiceDB
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: chatserviceUser
+      MONGO_INITDB_ROOT_PASSWORD: chatserviceUser
+    ports:
+      - "27017:27017"  # Exposing MongoDB to the host machine
+   
+ 
+  
+  documentServiceDB:
+    image: postgres
+    container_name: documentServiceDB
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: chatPDF
+      POSTGRES_USER: chatPDF
+      POSTGRES_DB: chatPDF_document
+  userServiceDB:
+    image: postgres
+    container_name: userServiceDB
+    ports:
+     - 5431:5432
+    environment:
+     POSTGRES_PASSWORD: chatPDF
+     POSTGRES_USER: chatPDF
+     POSTGRES_DB: chatPDF_user
+    
+networks:
+  kafka-network:
+    driver: bridge  # Separate network for Kafka
+  mongo-network:
+    driver: bridge  # Separate network for MongoDB
+
+volumes:
+  mongo-data:
+
+

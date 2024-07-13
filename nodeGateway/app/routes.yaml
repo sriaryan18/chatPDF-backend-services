@@ -10,6 +10,10 @@ services:
         isProtected: false
         isSubscription: false
         path: /api/auth/login
+      register:
+        isProtected: false
+        isSubscription: false
+        path: /api/auth/register
   upload:
     redirectionURL: "http://localhost:3004"
     subUrl:

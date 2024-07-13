@@ -21,7 +21,7 @@ const getUserDetails = async (authHeader: string) => {
       }
     })
   );
-  // console.log("resp", response.data);
+  console.log("resp", response.data);
   return response.data;
 };
 
